@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Bootstrap Boilerplate</title>
+	<style>
+
+		.menu-pane {
+			height: 100%;
+			position: fixed;
+			top: 0;
+			right: 0;
+			display: flex;
+		}
+
+		.menu-style {
+			width: 0;
+			background: #333333;
+			color: #dddddd;
+			overflow-x: hidden;
+    		transition: all ease-in-out 0.5s;
+		}
+
+		#arrowOpen {
+			width: 32px;
+			height: 32px;
+			position: absolute;
+			top: 50%;
+		}
+
+		#arrowClose {
+			width: 32px;
+			height: 32px;
+			position: absolute;
+			top: 50%;
+		}
+
+		.arrow_container {
+			position: relative;
+			margin-right: 1.48em;
+			display: inline;
+			height: 100%;
+			width: 32px;
+			right: 0;
+			top: 0;
+		}
+
+		.hidden {
+			display: none;
+		}
+
+	</style>
+</head>
+<body>
+	<!-- Any HTML Goes Here -->
+	
+	<div class="menu-pane">
+		<div class="arrow_container">
+			<img id="arrowOpen" src="arrow.png" alt="arrow">
+			<img id="arrowClose" src="close.png" alt="arrow" class="hidden">
+		</div>
+
+		<div id="menuSlide" class="menu-style">
+			<ul>
+				<li>Home</li>
+				<li>About</li>
+				<li>Blog</li>
+			</ul>
+		</div>
+	</div>
+	
+		
+	<!-- Any HTML Ends Here -->
+	
+    <script>
+    	document.addEventListener('DOMContentLoaded',function () {
+    		var menu = document.getElementById('menuSlide');
+    		var arrow = document.getElementById('arrowOpen');
+    		var close = document.getElementById('arrowClose');
+
+    		close.classList.add('hidden');
+
+    		arrow.addEventListener('click', function(){
+    				var el = arrow;
+    				var elIn = close
+    				menu.style.width = '150px';
+    				fadeOut(el);
+    				fadeIn(elIn);
+    			});
+
+    		close.addEventListener('click', function (){
+    				var el = close;
+    				var elIn = arrow;	 
+    				menu.style.width = '0px';
+    				fadeOut(el);
+    				fadeIn(elIn);
+    			});
+    	
+
+		// fade out
+
+		function fadeOut(el){
+		  el.style.opacity = 1;
+
+		  (function fade() {
+		    if ((el.style.opacity -= .1) < 0) {
+		      el.classList.add('hidden');
+		    } else {
+		      requestAnimationFrame(fade);
+		    }
+		  })();
+		}
+		
+		// fade in
+
+		function fadeIn(elIn, display){
+		  elIn.style.opacity = 0;
+		  elIn.classList.remove('hidden');
+
+		  (function fade() {
+		    var val = parseFloat(elIn.style.opacity);
+		    if (!((val += .1) > 1)) {
+		      elIn.style.opacity = val;
+		      requestAnimationFrame(fade);
+		    }
+		    if (elIn.classList.contains('hidden')){
+		    	elIn.classList.remove('hidden');
+		    	}
+		  	})();
+			}
+    	});
+
+
+    </script>
+</body>
+</html>
